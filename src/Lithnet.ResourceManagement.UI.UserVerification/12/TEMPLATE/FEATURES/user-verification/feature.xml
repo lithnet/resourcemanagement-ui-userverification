@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Feature  Id="1729F07D-3096-4F79-A157-5832C0546A40"
+          Title="Lithnet User Verfication Module for FIM/MIM"
+          Description="Adds user verification capability to FIM"
+          Version="1.0.0.0"
+          ActivateOnDefault="TRUE"
+          Hidden="FALSE"
+          Scope="Web"
+          xmlns="http://schemas.microsoft.com/sharepoint/">
+  <ElementManifests>
+    <ElementManifest Location="elements.xml"/>   
+  </ElementManifests>
+</Feature>
