@@ -73,7 +73,21 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
             }
         }
 
-        [ConfigurationProperty("searchAttributeName", IsRequired = true, DefaultValue = "AccountName")]
+
+        [ConfigurationProperty("accountNameAttributeName", IsRequired = true, DefaultValue = "AccountName")]
+        public string AccountNameAttributeName
+        {
+            get
+            {
+                return (string)this["accountNameAttributeName"];
+            }
+            set
+            {
+                this["accountNameAttributeName"] = value;
+            }
+        }
+
+        [ConfigurationProperty("searchAttributeName", IsRequired = true, DefaultValue = "ObjectID")]
         public string SearchAttributeName
         {
             get

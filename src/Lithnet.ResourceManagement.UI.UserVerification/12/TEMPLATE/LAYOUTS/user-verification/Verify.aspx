@@ -10,12 +10,13 @@
 </head>
 
 <body>
-    <div class="popup">
+    <div class="main">
         <div class="wrapper">
             <div id="header">
                 <img src="lithnet16.png" alt="Lithnet" />
             </div>
-            <h1> <asp:Label ID="lbHeader" runat="server" meta:resourcekey="lbHeader"></asp:Label></h1>
+            <h1>
+                <asp:Label ID="lbHeader" runat="server" meta:resourcekey="lbHeader"></asp:Label></h1>
             <form id="form1" runat="server">
                 <asp:Table runat="server">
                     <asp:TableRow>
@@ -55,7 +56,7 @@
                     <asp:Label ID="lbWarning" runat="server" Text="error" />
                 </div>
 
-                <asp:Button ID="btSend" runat="server" OnClick="btSend_Click"  meta:resourcekey="btSend" CssClass="button" />
+                <asp:Button ID="btSend" runat="server" OnClick="btSend_Click" meta:resourcekey="btSend" CssClass="button" />
             </form>
 
 

@@ -41,18 +41,23 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
                 this.pageTitle.Text = (string)this.GetLocalResourceObject("PageTitle");
                 this.UserID = this.Request.QueryString["id"];
                 string objectType = this.Request.QueryString["type"] ?? "Person";
-                this.lbUser.Text = this.UserID;
 
                 this.ClearError();
 
                 ResourceManagementClient c = new ResourceManagementClient();
-                ResourceObject o = c.GetResourceByKey(objectType, AppConfigurationSection.CurrentConfig.SearchAttributeName, this.UserID, new List<string> { AppConfigurationSection.CurrentConfig.PhoneNumberAttributeName, AppConfigurationSection.CurrentConfig.DisplayNameAttributeName });
+                ResourceObject o = c.GetResourceByKey(objectType, AppConfigurationSection.CurrentConfig.SearchAttributeName, this.UserID, new List<string> {  AppConfigurationSection.CurrentConfig.AccountNameAttributeName, AppConfigurationSection.CurrentConfig.PhoneNumberAttributeName, AppConfigurationSection.CurrentConfig.DisplayNameAttributeName });
 
                 if (o == null)
                 {
                     this.SetError((string)this.GetLocalResourceObject("ErrorUserNotFound"));
                     this.lbPhone.Text = null;
                     return;
+                }
+
+
+                if (o.Attributes.ContainsAttribute(AppConfigurationSection.CurrentConfig.AccountNameAttributeName))
+                {
+                    this.lbUser.Text = o.Attributes[AppConfigurationSection.CurrentConfig.AccountNameAttributeName].StringValue;
                 }
 
                 if (o.Attributes.ContainsAttribute(AppConfigurationSection.CurrentConfig.DisplayNameAttributeName))
