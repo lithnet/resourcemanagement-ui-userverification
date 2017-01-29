@@ -13,5 +13,6 @@ iisreset
 ## Upgrade Steps
 Using the SharePoint Management Shell
 ```
-
+Update-SPSolution -Identity user-verification.wsp -LiteralPath D:\temp\user-verification.wsp -GACDeployment -FullTrustBinDeployment
+iisreset
 ```
