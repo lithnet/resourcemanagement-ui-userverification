@@ -99,5 +99,35 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
                 this["searchAttributeName"] = value;
             }
         }
+
+        [ConfigurationProperty("smsCodeLength", IsRequired = true, DefaultValue = 6)]
+        public int SmsCodeLength
+        {
+            get
+            {
+                int val = (int) this["smsCodeLength"];
+
+                if (val <= 0)
+                {
+                    return 6;
+                }
+                else if (val > 9)
+                {
+                    return 9;
+                }
+                else
+                {
+                    return val;
+                }
+            }
+            set
+            {
+                this["smsCodeLength"] = value;
+            }
+        }
+
+        internal int SmsCodeLowRange => Convert.ToInt32("1".PadRight(this.SmsCodeLength, '0'));
+
+        internal int SmsCodeHighRange => Convert.ToInt32("9".PadRight(this.SmsCodeLength, '9'));
     }
 }

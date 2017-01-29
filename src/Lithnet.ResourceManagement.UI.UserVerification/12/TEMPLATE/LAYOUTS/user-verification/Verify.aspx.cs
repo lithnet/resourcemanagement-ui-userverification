@@ -13,6 +13,8 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
 {
     public partial class Verify : System.Web.UI.Page
     {
+        private static Random random = new Random();
+
         private static ISmsServiceProvider provider;
 
         private static ISmsServiceProvider Provider
@@ -28,24 +30,37 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
             }
         }
 
-        public string SmsCode { get; private set; }
+        private string SmsTarget
+        {
+            get
+            {
+                return (string)this.ViewState[nameof(this.SmsTarget)];
+            }
+            set
+            {
+                this.ViewState[nameof(this.SmsTarget)] = value;
+            }
+        }
 
-        public string SmsTarget { get; private set; }
+        public string UserObjectID => this.Request.QueryString["id"];
 
-        public string UserID { get; private set; }
+        public string ObjectType => this.Request.QueryString["type"] ?? "Person";
 
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
+                if (this.IsPostBack)
+                {
+                    return;
+                }
+
                 this.pageTitle.Text = (string)this.GetLocalResourceObject("PageTitle");
-                this.UserID = this.Request.QueryString["id"];
-                string objectType = this.Request.QueryString["type"] ?? "Person";
 
                 this.ClearError();
 
                 ResourceManagementClient c = new ResourceManagementClient();
-                ResourceObject o = c.GetResourceByKey(objectType, AppConfigurationSection.CurrentConfig.SearchAttributeName, this.UserID, new List<string> {  AppConfigurationSection.CurrentConfig.AccountNameAttributeName, AppConfigurationSection.CurrentConfig.PhoneNumberAttributeName, AppConfigurationSection.CurrentConfig.DisplayNameAttributeName });
+                ResourceObject o = c.GetResourceByKey(this.ObjectType, AppConfigurationSection.CurrentConfig.SearchAttributeName, this.UserObjectID, new List<string> {  AppConfigurationSection.CurrentConfig.AccountNameAttributeName, AppConfigurationSection.CurrentConfig.PhoneNumberAttributeName, AppConfigurationSection.CurrentConfig.DisplayNameAttributeName });
 
                 if (o == null)
                 {
@@ -109,10 +124,10 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
         }
 
 
-        private static Random random = new Random();
+
         private static string GenerateCode()
         {
-            return random.Next(100000, 999999).ToString("D6");
+            return random.Next(AppConfigurationSection.CurrentConfig.SmsCodeLowRange, AppConfigurationSection.CurrentConfig.SmsCodeHighRange).ToString($"D{AppConfigurationSection.CurrentConfig.SmsCodeLength}");
         }
 
         private static void LoadSmsProvider()
@@ -174,6 +189,8 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
 
         protected void btSend_Click(object sender, EventArgs e)
         {
+            string code = null;
+
             try
             {
                 if (this.SmsTarget == null)
@@ -184,19 +201,19 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
                 }
 
                 this.ClearError();
-                this.SmsCode = GenerateCode();
-                SD.Trace.WriteLine($"Sending code {this.SmsCode} for {this.SmsTarget}");
-                Provider.SendSms(this.SmsTarget, string.Format((string)this.GetLocalResourceObject("SmsContent"), this.SmsCode), Guid.NewGuid(), null);
-                SD.Trace.WriteLine($"Sent code {this.SmsCode} to {this.SmsTarget}");
+                code = GenerateCode();
+                SD.Trace.WriteLine($"Sending code {code} for {this.SmsTarget}");
+                Provider.SendSms(this.SmsTarget, string.Format((string)this.GetLocalResourceObject("SmsContent"), code), Guid.NewGuid(), null);
+                SD.Trace.WriteLine($"Sent code {code} to {this.SmsTarget}");
 
                 this.rowSecurityCode.Visible = true;
-                this.lbSecurityCode.Text = this.SmsCode;
+                this.lbSecurityCode.Text = code;
                 this.btSend.Text = (string)this.GetLocalResourceObject("PageButtonSendAnotherCode");
 
             }
             catch (Exception ex)
             {
-                SD.Trace.WriteLine($"Exception sending code {this.SmsCode} to {this.SmsTarget}\n {ex.ToString()}");
+                SD.Trace.WriteLine($"Exception sending code {code} to {this.SmsTarget}\n {ex.ToString()}");
                 this.SetError(string.Format((string)this.GetLocalResourceObject("ErrorMessageSendFailure"), ex.ToString()));
             }
         }
