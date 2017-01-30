@@ -133,28 +133,16 @@
   <data name="ErrorUserNotFound" xml:space="preserve">
     <value>L'utente specificato non è stato trovato</value>
   </data>
-  <data name="btSend.Text" xml:space="preserve">
+  <data name="PageButtonSendCode" xml:space="preserve">
     <value>Manda il codice</value>
-  </data>
-  <data name="lbCaptionName.Text" xml:space="preserve">
-    <value>Nome</value>
-  </data>
-  <data name="lbCaptionPhoneNumber.Text" xml:space="preserve">
-    <value>Numero di telefono</value>
-  </data>
-  <data name="lbCaptionSecurityCode.Text" xml:space="preserve">
-    <value>Codice di sicurezza</value>
-  </data>
-  <data name="lbCaptionUsername.Text" xml:space="preserve">
-    <value>Nome utente</value>
   </data>
   <data name="PageButtonSendAnotherCode" xml:space="preserve">
     <value>Invia un altro codice</value>
   </data>
-  <data name="lbHeader.Text" xml:space="preserve">
-    <value>Verifica dell'utente</value>
-  </data>
   <data name="PageTitle" xml:space="preserve">
     <value>Verifica dell'utente</value>
+  </data>
+  <data name="SecurityCode" xml:space="preserve">
+    <value>Codice di sicurezza</value>
   </data>
 </root>

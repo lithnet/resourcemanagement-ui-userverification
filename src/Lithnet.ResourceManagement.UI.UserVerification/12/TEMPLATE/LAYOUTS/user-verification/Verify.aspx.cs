@@ -129,6 +129,12 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
         {
             int rowCount = this.attributeTable.Rows.Count;
 
+            if (value == null)
+            {
+                SD.Trace.WriteLine($"Ignoring row add request for {header} as its value was null");
+                return;
+            }
+
             TableRow row = new TableRow();
             row.ID = $"row{rowCount}";
 
@@ -158,7 +164,6 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
             }
 
             SD.Trace.WriteLine($"Reloading table structure");
-            
             
             foreach (KeyValuePair<string, string> kvp in this.RowItems)
             {
@@ -335,7 +340,7 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
                 Provider.SendSms(this.SmsTarget, string.Format((string)this.GetLocalResourceObject("SmsContent"), code), Guid.NewGuid(), null);
                 SD.Trace.WriteLine($"Sent code {code} to {this.SmsTarget}");
 
-                this.AddRowToTable("Security code", code, false);
+                this.AddRowToTable((string)this.GetLocalResourceObject("SecurityCode"), code, false);
                 this.btSend.Text = (string)this.GetLocalResourceObject("PageButtonSendAnotherCode");
 
             }
