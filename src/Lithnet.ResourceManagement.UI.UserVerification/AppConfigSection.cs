@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Configuration;
 using System.Reflection;
 
@@ -60,33 +61,6 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
             }
         }
 
-        [ConfigurationProperty("displayNameAttributeName", IsRequired = true, DefaultValue = "DisplayName")]
-        public string DisplayNameAttributeName
-        {
-            get
-            {
-                return (string) this["displayNameAttributeName"];
-            }
-            set
-            {
-                this["displayNameAttributeName"] = value;
-            }
-        }
-
-
-        [ConfigurationProperty("accountNameAttributeName", IsRequired = true, DefaultValue = "AccountName")]
-        public string AccountNameAttributeName
-        {
-            get
-            {
-                return (string)this["accountNameAttributeName"];
-            }
-            set
-            {
-                this["accountNameAttributeName"] = value;
-            }
-        }
-
         [ConfigurationProperty("searchAttributeName", IsRequired = true, DefaultValue = "ObjectID")]
         public string SearchAttributeName
         {
@@ -97,6 +71,27 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
             set
             {
                 this["searchAttributeName"] = value;
+            }
+        }
+
+        [ConfigurationProperty("displayAttributes", IsRequired = true, DefaultValue = "DisplayName,AccountName,Domain,msidmOneTimePasswordMobilePhone")]
+        public string DisplayAttributes
+        {
+            get
+            {
+                return (string)this["displayAttributes"];
+            }
+            set
+            {
+                this["displayAttributes"] = value;
+            }
+        }
+
+        internal string[] DisplayAttributeList
+        {
+            get
+            {
+                return this.DisplayAttributes.Split(',');
             }
         }
 
