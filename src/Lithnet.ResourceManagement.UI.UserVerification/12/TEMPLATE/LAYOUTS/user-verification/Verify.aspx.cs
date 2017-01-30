@@ -19,6 +19,10 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
 
         private static ISmsServiceProvider provider;
 
+        private static Dictionary<string, string> localizedDisplayNameCache = new Dictionary<string, string>();
+
+        private static List<string> displayNameList = new List<string>() { "DisplayName" };
+
         private static ISmsServiceProvider Provider
         {
             get
@@ -64,36 +68,58 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
             }
         }
 
-        public string UserObjectID => this.Request.QueryString["id"];
+        private string UserObjectID => this.Request.QueryString["id"];
 
-        public string ObjectType => this.Request.QueryString["type"] ?? "Person";
+        private string ObjectType => this.Request.QueryString["type"] ?? "Person";
+
+        private ResourceManagementClient client;
+
+        private ResourceManagementClient Client
+        {
+            get
+            {
+                if (this.client == null)
+                {
+                    this.client = new ResourceManagementClient();
+                }
+
+                return this.client;
+            }
+        }
 
         private string GetLocalizedName(string attributeName, string objectType)
         {
+            string key = $"{attributeName}-{objectType}-{CultureInfo.CurrentCulture.Name}";
+
+            if (Verify.localizedDisplayNameCache.ContainsKey(key))
+            {
+                SD.Trace.WriteLine($"Got localized display name for {key} from cache");
+                return Verify.localizedDisplayNameCache[key];
+            }
+
             ResourceObject o = this.GetLocalizedObjectType(objectType);
             ResourceObject a = this.GetLocalizedAttributeType(attributeName);
             ResourceObject b = this.GetLocalizedBinding(o, a);
+
+            Verify.localizedDisplayNameCache.Add(key, b.DisplayName);
+            SD.Trace.WriteLine($"Added localized display name for {key} to cache");
 
             return b.DisplayName;
         }
 
         private ResourceObject GetLocalizedBinding(ResourceObject objectType, ResourceObject attributeType)
         {
-            ResourceManagementClient c = new ResourceManagementClient();
-
             Dictionary<string, object> values = new Dictionary<string, object>();
             values.Add("BoundAttributeType", attributeType.ObjectID.Value);
             values.Add("BoundObjectType", objectType.ObjectID.Value);
 
-            return c.GetResourceByKey("BindingDescription", values, new List<string>() { "DisplayName" }, CultureInfo.CurrentCulture);
+            return this.Client.GetResourceByKey("BindingDescription", values, Verify.displayNameList, CultureInfo.CurrentCulture);
 
         }
 
         private ResourceObject GetLocalizedObjectType(string objectType)
         {
-            ResourceManagementClient c = new ResourceManagementClient();
-
-            ResourceObject o = c.GetResourceByKey("ObjectTypeDescription", "Name", objectType, CultureInfo.CurrentCulture);
+            ResourceObject o = this.Client.GetResourceByKey("ObjectTypeDescription", "Name", objectType, Verify.displayNameList, CultureInfo.CurrentCulture);
 
             if (o == null)
             {
@@ -105,9 +131,7 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
 
         private ResourceObject GetLocalizedAttributeType(string attributeName)
         {
-            ResourceManagementClient c = new ResourceManagementClient();
-
-            ResourceObject o = c.GetResourceByKey("AttributeTypeDescription", "Name", attributeName, CultureInfo.CurrentCulture);
+            ResourceObject o = this.Client.GetResourceByKey("AttributeTypeDescription", "Name", attributeName, Verify.displayNameList, CultureInfo.CurrentCulture);
 
             if (o == null)
             {
@@ -129,7 +153,7 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
         {
             int rowCount = this.attributeTable.Rows.Count;
 
-            if (value == null)
+            if (value == null && !AppConfigurationSection.CurrentConfig.ShowNullAttributes)
             {
                 SD.Trace.WriteLine($"Ignoring row add request for {header} as its value was null");
                 return;
@@ -164,7 +188,7 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
             }
 
             SD.Trace.WriteLine($"Reloading table structure");
-            
+
             foreach (KeyValuePair<string, string> kvp in this.RowItems)
             {
                 int i = this.attributeTable.Rows.Count;
@@ -187,7 +211,7 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
                 SD.Trace.WriteLine($"Row {i} re-added");
             }
         }
-        
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try

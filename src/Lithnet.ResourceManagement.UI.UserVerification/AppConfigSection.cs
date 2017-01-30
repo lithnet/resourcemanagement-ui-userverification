@@ -87,6 +87,19 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
             }
         }
 
+        [ConfigurationProperty("showNullAttributes", IsRequired = true, DefaultValue = false)]
+        public bool ShowNullAttributes
+        {
+            get
+            {
+                return (bool)this["showNullAttributes"];
+            }
+            set
+            {
+                this["showNullAttributes"] = value;
+            }
+        }
+
         internal string[] DisplayAttributeList
         {
             get
