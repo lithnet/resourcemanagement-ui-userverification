@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
 using System.Web;
@@ -91,20 +92,23 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
         {
             string key = $"{attributeName}-{objectType}-{CultureInfo.CurrentCulture.Name}";
 
-            if (Verify.localizedDisplayNameCache.ContainsKey(key))
+            lock (Verify.localizedDisplayNameCache)
             {
-                SD.Trace.WriteLine($"Got localized display name for {key} from cache");
-                return Verify.localizedDisplayNameCache[key];
+                if (Verify.localizedDisplayNameCache.ContainsKey(key))
+                {
+                    SD.Trace.WriteLine($"Got localized display name for {key} from cache");
+                    return Verify.localizedDisplayNameCache[key];
+                }
+
+                ResourceObject o = this.GetLocalizedObjectType(objectType);
+                ResourceObject a = this.GetLocalizedAttributeType(attributeName);
+                ResourceObject b = this.GetLocalizedBinding(o, a);
+
+                Verify.localizedDisplayNameCache.Add(key, b.DisplayName);
+                SD.Trace.WriteLine($"Added localized display name for {key} to cache");
+
+                return b.DisplayName;
             }
-
-            ResourceObject o = this.GetLocalizedObjectType(objectType);
-            ResourceObject a = this.GetLocalizedAttributeType(attributeName);
-            ResourceObject b = this.GetLocalizedBinding(o, a);
-
-            Verify.localizedDisplayNameCache.Add(key, b.DisplayName);
-            SD.Trace.WriteLine($"Added localized display name for {key} to cache");
-
-            return b.DisplayName;
         }
 
         private ResourceObject GetLocalizedBinding(ResourceObject objectType, ResourceObject attributeType)
@@ -212,6 +216,32 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
             }
         }
 
+        private bool IsAuthorized()
+        {
+            if (string.IsNullOrEmpty(AppConfigurationSection.CurrentConfig.AuthorizationSet))
+            {
+                return true;
+            }
+
+            ResourceObject o = UserUtils.GetCurrentUser();
+
+            if (o == null)
+            {
+                SD.Trace.WriteLine("Current user was not found in the FIM service");
+                return false;
+            }
+
+            Guid g;
+            if (Guid.TryParse(AppConfigurationSection.CurrentConfig.AuthorizationSet, out g))
+            {
+                return UserUtils.IsMemberOfSet(o, g);
+            }
+            else
+            {
+                return UserUtils.IsMemberOfSet(o, AppConfigurationSection.CurrentConfig.AuthorizationSet);
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -228,6 +258,14 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
                 this.lbHeader.Text = (string)this.GetLocalResourceObject("PageTitle");
                 this.btSend.Text = (string)this.GetLocalResourceObject("PageButtonSendCode");
                 this.ClearError();
+
+                if (!this.IsAuthorized())
+                {
+                    this.SetError((string)this.GetLocalResourceObject("NotAuthorized"));
+                    this.btSend.Visible = false;
+                    SD.Trace.WriteLine("User is not authorized to use this tool");
+                    return;
+                }
 
                 ResourceManagementClient c = new ResourceManagementClient();
                 List<string> attributeList = new List<string>();

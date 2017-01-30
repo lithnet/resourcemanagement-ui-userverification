@@ -89,6 +89,7 @@
     </Compile>
     <Compile Include="AppConfigSection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="12\TEMPLATE\FEATURES\user-verification\elements.xml" />

@@ -145,4 +145,7 @@
   <data name="PageTitle" xml:space="preserve">
     <value>User verification</value>
   </data>
+  <data name="NotAuthorized" xml:space="preserve">
+    <value>You are not authorized to use this tool</value>
+  </data>
 </root>

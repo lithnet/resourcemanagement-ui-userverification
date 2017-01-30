@@ -145,4 +145,7 @@
   <data name="SecurityCode" xml:space="preserve">
     <value>Codice di sicurezza</value>
   </data>
+  <data name="NotAuthorized" xml:space="preserve">
+    <value>Non sei autorizzato a utilizzare questo strumento</value>
+  </data>
 </root>

@@ -35,7 +35,7 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
         }
 
 
-        [ConfigurationProperty("smsServiceProviderDll", IsRequired = true, DefaultValue = @"%ProgramFiles%\Microsoft Forefront Identity Manager\2010\Service\SmsServiceProvider.dll")]
+        [ConfigurationProperty("smsServiceProviderDll", IsRequired = false, DefaultValue = @"%ProgramFiles%\Microsoft Forefront Identity Manager\2010\Service\SmsServiceProvider.dll")]
         public string SmsServiceProviderDll
         {
             get
@@ -48,7 +48,7 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
             }
         }
 
-        [ConfigurationProperty("phoneNumberAttributeName", IsRequired = true, DefaultValue = "msidmOneTimePasswordMobilePhone")]
+        [ConfigurationProperty("phoneNumberAttributeName", IsRequired = false, DefaultValue = "msidmOneTimePasswordMobilePhone")]
         public string PhoneNumberAttributeName
         {
             get
@@ -61,7 +61,7 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
             }
         }
 
-        [ConfigurationProperty("searchAttributeName", IsRequired = true, DefaultValue = "ObjectID")]
+        [ConfigurationProperty("searchAttributeName", IsRequired = false, DefaultValue = "ObjectID")]
         public string SearchAttributeName
         {
             get
@@ -74,7 +74,7 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
             }
         }
 
-        [ConfigurationProperty("displayAttributes", IsRequired = true, DefaultValue = "DisplayName,AccountName,Domain,msidmOneTimePasswordMobilePhone")]
+        [ConfigurationProperty("displayAttributes", IsRequired = false, DefaultValue = "DisplayName,AccountName,Domain,msidmOneTimePasswordMobilePhone")]
         public string DisplayAttributes
         {
             get
@@ -87,7 +87,20 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
             }
         }
 
-        [ConfigurationProperty("showNullAttributes", IsRequired = true, DefaultValue = false)]
+        [ConfigurationProperty("authorizationSet", IsRequired = false)]
+        public string AuthorizationSet
+        {
+            get
+            {
+                return (string)this["authorizationSet"];
+            }
+            set
+            {
+                this["authorizationSet"] = value;
+            }
+        }
+
+        [ConfigurationProperty("showNullAttributes", IsRequired = false, DefaultValue = false)]
         public bool ShowNullAttributes
         {
             get
