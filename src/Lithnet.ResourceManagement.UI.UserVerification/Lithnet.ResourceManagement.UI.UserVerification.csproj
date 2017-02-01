@@ -146,6 +146,9 @@
   <ItemGroup>
     <Content Include="12\TEMPLATE\LAYOUTS\user-verification\App_LocalResources\Verify.aspx.it.resx" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="12\TEMPLATE\LAYOUTS\user-verification\App_LocalResources\Verify.aspx.de.resx" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
