@@ -18,6 +18,6 @@ The module will match the locale of the FIM portal, rendering attribute display 
 - Italian
 - German
 
-If you want to contribute a translation, please fill in the [localization survey](https://lithnet-my.sharepoint.com/personal/ryan_lithiumblue_com/_layouts/15/guestaccess.aspx?guestaccesstoken=QMmZhOa00BEb1QJnSnIlPvHFB4DSTBZWxh5UZAVp9aw%3d&docid=1_1fb5451aedc1842b88e2daeb1077b0ac8&wdFormId=%7B59C5F77D%2DCDEA%2D4703%2DBA86%2D81352BC45ED4%7D) and raise a new issue requesting your language be added.
+If you want to contribute a translation, please fill in the [localization survey](https://lithnet-my.sharepoint.com/personal/ryan_lithiumblue_com/_layouts/15/guestaccess.aspx?guestaccesstoken=QMmZhOa00BEb1QJnSnIlPvHFB4DSTBZWxh5UZAVp9aw%3d&docid=1_1fb5451aedc1842b88e2daeb1077b0ac8&wdFormId=%7B59C5F77D%2DCDEA%2D4703%2DBA86%2D81352BC45ED4%7D) and raise a [new issue](https://github.com/lithnet/resourcemanagement-ui-userverification/issues/new) requesting your language be added.
 
 Alternatively, if you are comfortable with git and visual studio, clone the repository, copy the `Verify.aspx.resx` file, naming it `Verify.aspx.CODE.resx`, where CODE is your two letter language code, modify the strings in the file, and submit a pull request.
