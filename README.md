@@ -7,7 +7,7 @@ If your users are already registered for SMS-based self-service password reset, 
 ![](https://github.com/lithnet/resourcemanagement-ui-userverification/wiki/images/screen-shot1.png)
 
 ## Features
-1. Uses your existing SmsServiceProvider.dll that you created for SSPR one-time SMS passwords
+1. Uses your existing [SmsServiceProvider.dll](https://github.com/lithnet/resourcemanagement-ui-userverification/wiki/Creating-an-SmsServiceProvider) that you created for SSPR one-time SMS passwords
 2. Customize the list of attributes shown on the user verification page
 3. Supports localized attribute names from the FIM/MIM service
 4. Integrates with the user RCDC using a UocHyperLink control
