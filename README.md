@@ -14,7 +14,7 @@ If your users are already registered for SMS-based self-service password reset, 
 5. Can be secured to only allow users of a set to access the tool
 
 ## Getting started
-The module is a simple WSP package that needs to be deployed into your SharePoint farm. The [installation guide](Installation and upgrade steps) covers all the steps for installing and upgrading the module
+The module is a simple WSP package that needs to be deployed into your SharePoint farm. The [installation guide](https://github.com/lithnet/resourcemanagement-ui-userverification/wiki/Installation-and-upgrade-steps) covers all the steps for installing and upgrading the module
 
 ## Localization
 The module will match the locale of the FIM portal, rendering attribute display names in the browser's preferred language. The module itself has been localized into the following languages
