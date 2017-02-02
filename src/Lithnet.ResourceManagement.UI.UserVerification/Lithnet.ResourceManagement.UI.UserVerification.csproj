@@ -131,7 +131,7 @@
     <Content Include="Lithnet.ResourceManagement.UI.UserVerification.snk" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="12\TEMPLATE\LAYOUTS\user-verification\App_LocalResources\Verify.aspx.resx" />
+    <EmbeddedResource Include="12\TEMPLATE\LAYOUTS\user-verification\App_LocalResources\Verify.aspx.resx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="web.config" />
@@ -144,10 +144,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="12\TEMPLATE\LAYOUTS\user-verification\App_LocalResources\Verify.aspx.it.resx" />
+    <EmbeddedResource Include="12\TEMPLATE\LAYOUTS\user-verification\App_LocalResources\Verify.aspx.it.resx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="12\TEMPLATE\LAYOUTS\user-verification\App_LocalResources\Verify.aspx.de.resx" />
+    <EmbeddedResource Include="12\TEMPLATE\LAYOUTS\user-verification\App_LocalResources\Verify.aspx.de.resx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
