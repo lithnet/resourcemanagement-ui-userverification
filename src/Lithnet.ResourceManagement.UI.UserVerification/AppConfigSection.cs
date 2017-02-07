@@ -121,7 +121,7 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
             }
         }
 
-        [ConfigurationProperty("smsCodeLength", IsRequired = true, DefaultValue = 6)]
+        [ConfigurationProperty("smsCodeLength", IsRequired = false, DefaultValue = 6)]
         public int SmsCodeLength
         {
             get
