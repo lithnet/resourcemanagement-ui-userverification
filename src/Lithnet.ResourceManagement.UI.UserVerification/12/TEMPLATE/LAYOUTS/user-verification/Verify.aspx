@@ -8,21 +8,22 @@
     <title runat="server" id="pageTitle">
         <asp:Literal runat="server" Text="<%$Resources:PageTitle%>" /></title>
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="common-layout.css" />
 </head>
 
 <body>
     <div class="main">
         <div class="wrapper">
-            <div id="header">
+            <div id="header" class="lithnet-header">
                 <img src="lithnet16.png" alt="Lithnet" />
             </div>
             <h1>
                 <asp:Label ID="lbHeader" runat="server"></asp:Label>
             </h1>
-            <form id="form1" runat="server">
-                <asp:Table ID="attributeTable" runat="server" />
+            <form id="form1" runat="server" class="formcontent">
+                <asp:Table ID="attributeTable" runat="server" CssClass="dataTable" />
 
-                <div id="warning" runat="server">
+                <div id="divWarning" class="warning" runat="server">
                     <asp:Label ID="lbWarning" runat="server" Text="" />
                 </div>
 

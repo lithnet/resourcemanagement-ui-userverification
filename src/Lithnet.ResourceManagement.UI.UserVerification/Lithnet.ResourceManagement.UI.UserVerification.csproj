@@ -96,6 +96,7 @@
   <ItemGroup>
     <Content Include="12\TEMPLATE\FEATURES\user-verification\elements.xml" />
     <Content Include="12\TEMPLATE\FEATURES\user-verification\feature.xml" />
+    <Content Include="12\TEMPLATE\LAYOUTS\user-verification\common-layout.css" />
     <Content Include="12\TEMPLATE\LAYOUTS\user-verification\icon_alert.gif" />
     <Content Include="12\TEMPLATE\LAYOUTS\user-verification\lithnet16.png" />
     <Content Include="12\TEMPLATE\LAYOUTS\user-verification\styles.css" />

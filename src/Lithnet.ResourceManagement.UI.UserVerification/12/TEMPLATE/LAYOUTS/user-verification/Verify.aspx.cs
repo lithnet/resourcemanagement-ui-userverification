@@ -232,13 +232,13 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
         {
             if (message == null)
             {
-                this.warning.Visible = false;
+                this.divWarning.Visible = false;
                 this.lbWarning.Text = null;
                 this.btSend.Enabled = true;
             }
             else
             {
-                this.warning.Visible = true;
+                this.divWarning.Visible = true;
                 this.lbWarning.Text = message;
                 this.btSend.Enabled = false;
             }
