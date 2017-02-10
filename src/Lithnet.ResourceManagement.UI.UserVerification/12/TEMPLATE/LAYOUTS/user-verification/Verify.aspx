@@ -5,7 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title runat="server" id="pageTitle">User verification</title>
+    <title runat="server" id="pageTitle">
+        <asp:Literal runat="server" Text="<%$Resources:PageTitle%>" /></title>
     <link rel="stylesheet" href="styles.css" />
 </head>
 
@@ -22,7 +23,7 @@
                 <asp:Table ID="attributeTable" runat="server" />
 
                 <div id="warning" runat="server">
-                    <asp:Label ID="lbWarning" runat="server" Text="error" />
+                    <asp:Label ID="lbWarning" runat="server" Text="" />
                 </div>
 
                 <asp:Button ID="btSend" runat="server" OnClick="btSend_Click" CssClass="button" />

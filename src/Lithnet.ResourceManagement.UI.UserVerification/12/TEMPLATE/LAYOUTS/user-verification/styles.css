@@ -1,12 +1,12 @@
 ﻿.main {
     display: block;
-    position: fixed;
-    left: 50%;
 }
 
     .main .wrapper {
         position: relative;
-        left: -50%;
+        margin: 0 auto;
+        width:65%;
+        max-width: 800px;
         background-color: #fff;
         border: solid 2px #444;
         border-radius: 10px;
@@ -40,6 +40,7 @@ h1 {
     background-image: url('icon_alert.gif');
     background-repeat: no-repeat;
     background-position: left center;
+    word-wrap: break-word;
 }
 
     #warning:empty {
@@ -50,34 +51,37 @@ table {
     margin: 10px;
     margin-bottom: 10px;
     margin-top: 10px;
-    width: 400px;
     border-top: 1px solid #e5eff8;
     border-right: 1px solid #e5eff8;
     border-collapse: collapse;
     border-style: hidden;
+    table-layout: fixed;
+    width: 100%;
 }
 
 th {
     padding: 10px;
-    white-space: nowrap;
     text-align: right;
     font-weight: 600;
     color: #678197;
     border-bottom: 1px solid #e5eff8;
     border-left: 1px solid #e5eff8;
+    width: 35%;
 }
 
 td {
     padding: 10px;
     text-align: left;
-    width: 100%;
     color: #678197;
     border-bottom: 1px solid #e5eff8;
+    word-wrap: break-word;
+    width: 65%;
 }
 
 #result {
     margin-top: 10px;
     margin-bottom: 10px;
+    word-wrap: break-word;
 }
 
 #header {
@@ -114,7 +118,7 @@ input.button {
         -webkit-box-shadow: 0 1px 2px #777;
         box-shadow: 0 1px 2px #777;
     }
- 
+
     input.button:disabled {
         color: #dcdcdc;
         background: #f3f3f3;

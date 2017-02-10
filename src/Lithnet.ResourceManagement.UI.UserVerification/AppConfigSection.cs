@@ -2,6 +2,7 @@
 using System.ComponentModel;
 using System.Configuration;
 using System.Reflection;
+using System.Linq;
 
 namespace Lithnet.ResourceManagement.UI.UserVerification
 {
@@ -24,7 +25,7 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
 
         internal static AppConfigurationSection GetConfiguration()
         {
-            AppConfigurationSection section = (AppConfigurationSection) ConfigurationManager.GetSection("lithnetUserVerification");
+            AppConfigurationSection section = (AppConfigurationSection)ConfigurationManager.GetSection("lithnetUserVerification");
 
             if (section == null)
             {
@@ -40,7 +41,7 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
         {
             get
             {
-                return (string) this["smsServiceProviderDll"];
+                return (string)this["smsServiceProviderDll"];
             }
             set
             {
@@ -53,7 +54,7 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
         {
             get
             {
-                return (string) this["phoneNumberAttributeName"];
+                return (string)this["phoneNumberAttributeName"];
             }
             set
             {
@@ -79,7 +80,7 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
         {
             get
             {
-                return (string)this["displayAttributes"];
+                return ((string)this["displayAttributes"]).Replace(" ", string.Empty);
             }
             set
             {
@@ -126,7 +127,7 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
         {
             get
             {
-                int val = (int) this["smsCodeLength"];
+                int val = (int)this["smsCodeLength"];
 
                 if (val <= 0)
                 {

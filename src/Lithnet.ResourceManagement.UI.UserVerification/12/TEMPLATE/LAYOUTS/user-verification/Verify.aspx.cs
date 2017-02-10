@@ -11,31 +11,13 @@ using Microsoft.IdentityManagement.SmsServiceProvider;
 using SD = System.Diagnostics;
 using System.Globalization;
 using System.Threading;
+using System.Linq;
 
 namespace Lithnet.ResourceManagement.UI.UserVerification
 {
     public partial class Verify : System.Web.UI.Page
     {
         private static Random random = new Random();
-
-        private static ISmsServiceProvider provider;
-
-        private static Dictionary<string, string> localizedDisplayNameCache = new Dictionary<string, string>();
-
-        private static List<string> displayNameList = new List<string>() { "DisplayName" };
-
-        private static ISmsServiceProvider Provider
-        {
-            get
-            {
-                if (provider == null)
-                {
-                    LoadSmsProvider();
-                }
-
-                return provider;
-            }
-        }
 
         private string SmsTarget
         {
@@ -73,83 +55,24 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
 
         private string ObjectType => this.Request.QueryString["type"] ?? "Person";
 
-        private ResourceManagementClient client;
-
-        private ResourceManagementClient Client
-        {
-            get
-            {
-                if (this.client == null)
-                {
-                    this.client = new ResourceManagementClient();
-                }
-
-                return this.client;
-            }
-        }
-
-        private string GetLocalizedName(string attributeName, string objectType)
-        {
-            string key = $"{attributeName}-{objectType}-{CultureInfo.CurrentCulture.Name}";
-
-            lock (Verify.localizedDisplayNameCache)
-            {
-                if (Verify.localizedDisplayNameCache.ContainsKey(key))
-                {
-                    SD.Trace.WriteLine($"Got localized display name for {key} from cache");
-                    return Verify.localizedDisplayNameCache[key];
-                }
-
-                ResourceObject o = this.GetLocalizedObjectType(objectType);
-                ResourceObject a = this.GetLocalizedAttributeType(attributeName);
-                ResourceObject b = this.GetLocalizedBinding(o, a);
-
-                Verify.localizedDisplayNameCache.Add(key, b.DisplayName);
-                SD.Trace.WriteLine($"Added localized display name for {key} to cache");
-
-                return b.DisplayName;
-            }
-        }
-
-        private ResourceObject GetLocalizedBinding(ResourceObject objectType, ResourceObject attributeType)
-        {
-            Dictionary<string, object> values = new Dictionary<string, object>();
-            values.Add("BoundAttributeType", attributeType.ObjectID.Value);
-            values.Add("BoundObjectType", objectType.ObjectID.Value);
-
-            return this.Client.GetResourceByKey("BindingDescription", values, Verify.displayNameList, CultureInfo.CurrentCulture);
-
-        }
-
-        private ResourceObject GetLocalizedObjectType(string objectType)
-        {
-            ResourceObject o = this.Client.GetResourceByKey("ObjectTypeDescription", "Name", objectType, Verify.displayNameList, CultureInfo.CurrentCulture);
-
-            if (o == null)
-            {
-                throw new InvalidOperationException($"The objectType {objectType} was not found in the schema");
-            }
-
-            return o;
-        }
-
-        private ResourceObject GetLocalizedAttributeType(string attributeName)
-        {
-            ResourceObject o = this.Client.GetResourceByKey("AttributeTypeDescription", "Name", attributeName, Verify.displayNameList, CultureInfo.CurrentCulture);
-
-            if (o == null)
-            {
-                throw new InvalidOperationException($"The attribute {attributeName} was not found in the schema");
-            }
-
-            return o;
-        }
-
         private void BuildAttributeTable(ResourceObject o)
         {
             foreach (string attributeName in AppConfigurationSection.CurrentConfig.DisplayAttributeList)
             {
-                this.AddRowToTable(this.GetLocalizedName(attributeName, this.ObjectType), o.Attributes[attributeName].StringValue, true);
+                string value;
+
+                AttributeValue attribute = o.Attributes[attributeName];
+
+                if (attribute.IsNull)
+                {
+                    value = null;
+                }
+                else
+                {
+                    value = string.Join("<br/>", attribute.ValuesAsString);
+                }
+
+                this.AddRowToTable(LocalizationHelper.GetLocalizedName(attributeName, this.ObjectType), value, true);
             }
         }
 
@@ -326,63 +249,6 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
             return random.Next(AppConfigurationSection.CurrentConfig.SmsCodeLowRange, AppConfigurationSection.CurrentConfig.SmsCodeHighRange).ToString($"D{AppConfigurationSection.CurrentConfig.SmsCodeLength}");
         }
 
-        private static void LoadSmsProvider()
-        {
-            SD.Trace.Write("Loading SMS provider");
-
-            AppDomain.CurrentDomain.AssemblyResolve += CurrentDomain_AssemblyResolve;
-
-
-            string path = Environment.ExpandEnvironmentVariables(AppConfigurationSection.CurrentConfig.SmsServiceProviderDll);
-
-            SD.Trace.WriteLine($"Attempting to load provider from {path}");
-
-            if (!File.Exists(path))
-            {
-                throw new FileNotFoundException($"The SMS provider DLL was not found at {path}. If the file exists in another location, specify that in the smsServiceProviderDll section of the web.config file");
-            }
-
-            Assembly assembly = Assembly.LoadFile(path);
-
-            SD.Trace.WriteLine($"Loaded assembly");
-
-            Type[] types = assembly.GetExportedTypes();
-
-            SD.Trace.WriteLine($"Got types");
-
-
-            foreach (Type t in types)
-            {
-                if (typeof(ISmsServiceProvider).IsAssignableFrom(t))
-                {
-                    SD.Trace.WriteLine($"Found type that implements ISmsServiceProvider");
-                    Verify.provider = (ISmsServiceProvider)Activator.CreateInstance(t);
-                    SD.Trace.WriteLine($"Provider loaded");
-                    return;
-                }
-            }
-
-            SD.Trace.WriteLine($"Did not find any types that implement ISmsServiceProvider");
-
-            throw new InvalidOperationException("The specified SMS provider did not contain an ISmsServiceProvider interface");
-        }
-
-        private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)
-        {
-            SD.Trace.WriteLine($"Attempting to resolve assembly {args.Name}");
-
-            string folderPath = Path.GetDirectoryName(Environment.ExpandEnvironmentVariables(AppConfigurationSection.CurrentConfig.SmsServiceProviderDll));
-            string assemblyPath = Path.Combine(folderPath, new AssemblyName(args.Name).Name + ".dll");
-            if (!File.Exists(assemblyPath))
-            {
-                SD.Trace.WriteLine($"Assembly not found at path {assemblyPath}");
-                return null;
-            }
-
-            SD.Trace.WriteLine($"Assembly found at path {assemblyPath}");
-            return Assembly.LoadFrom(assemblyPath);
-        }
-
         protected void btSend_Click(object sender, EventArgs e)
         {
             string code = null;
@@ -399,12 +265,11 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
                 this.ClearError();
                 code = GenerateCode();
                 SD.Trace.WriteLine($"Sending code {code} for {this.SmsTarget}");
-                Provider.SendSms(this.SmsTarget, string.Format((string)this.GetLocalResourceObject("SmsContent"), code), Guid.NewGuid(), null);
+                SmsProvider.SendSms(this.SmsTarget, string.Format((string)this.GetLocalResourceObject("SmsContent"), code));
                 SD.Trace.WriteLine($"Sent code {code} to {this.SmsTarget}");
 
                 this.AddRowToTable((string)this.GetLocalResourceObject("SecurityCode"), code, false);
                 this.btSend.Text = (string)this.GetLocalResourceObject("PageButtonSendAnotherCode");
-
             }
             catch (Exception ex)
             {
