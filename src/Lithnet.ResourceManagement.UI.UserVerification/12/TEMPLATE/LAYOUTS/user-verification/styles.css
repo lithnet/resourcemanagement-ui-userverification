@@ -1,14 +1,5 @@
-﻿
-
-#result {
+﻿#result {
     margin-top: 10px;
     margin-bottom: 10px;
     word-wrap: break-word;
-}
-
-#btSend {
-    margin: auto;
-    display: block;
-    position: relative;
-    right: 0;
 }

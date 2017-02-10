@@ -27,9 +27,28 @@
                     <asp:Label ID="lbWarning" runat="server" Text="" />
                 </div>
 
-                <asp:Button ID="btSend" runat="server" OnClick="btSend_Click" CssClass="button" />
+                <div class="buttonRow">
+                    <asp:Button ID="btSend" runat="server" OnClick="btSend_Click" CssClass="button" />
+                    <asp:Button ID="btClose"
+                        runat="server"
+                        OnClientClick="ClosePage(); return false;"
+                        CssClass="button"
+                        Visible="true"
+                        Text="<%$Resources:PageButtonClose%>" />
+                </div>
             </form>
         </div>
     </div>
+    
+     <script>
+        function ClosePage() {
+            open(location, '_self').close();
+            return false;
+        }
+
+        function ResetPage() {
+            window.location.href = "<%=this.Request.RawUrl%>";
+        }
+    </script>
 </body>
 </html>
