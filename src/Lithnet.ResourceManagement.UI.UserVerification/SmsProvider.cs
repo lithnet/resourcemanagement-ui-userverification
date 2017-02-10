@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Diagnostics;
 using System.IO;
 using Microsoft.IdentityManagement.SmsServiceProvider;
+using System.Linq;
 
 namespace Lithnet.ResourceManagement.UI.UserVerification
 {
@@ -52,20 +53,17 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
 
             Trace.WriteLine($"Got types");
 
-            foreach (Type t in types)
+            Type t = types.FirstOrDefault(u => typeof(ISmsServiceProvider).IsAssignableFrom(u));
+
+            if (t == null)
             {
-                if (typeof(ISmsServiceProvider).IsAssignableFrom(t))
-                {
-                    Trace.WriteLine($"Found type that implements ISmsServiceProvider");
-                    SmsProvider.provider = (ISmsServiceProvider)Activator.CreateInstance(t);
-                    Trace.WriteLine($"Provider loaded");
-                    return;
-                }
+                Trace.WriteLine($"Did not find any types that implement ISmsServiceProvider");
+                throw new InvalidOperationException("The specified SMS provider did not contain an ISmsServiceProvider interface");
             }
 
-            Trace.WriteLine($"Did not find any types that implement ISmsServiceProvider");
-
-            throw new InvalidOperationException("The specified SMS provider did not contain an ISmsServiceProvider interface");
+            Trace.WriteLine($"Found type that implements ISmsServiceProvider");
+            SmsProvider.provider = (ISmsServiceProvider)Activator.CreateInstance(t);
+            Trace.WriteLine($"Provider loaded");
         }
 
         private static Assembly CurrentDomain_AssemblyResolve(object sender, ResolveEventArgs args)

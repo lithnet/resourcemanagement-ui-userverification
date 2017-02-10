@@ -18,7 +18,7 @@
                 <img src="lithnet16.png" alt="Lithnet" />
             </div>
             <h1>
-                <asp:Label ID="lbHeader" runat="server"></asp:Label>
+                <asp:Label ID="lbHeader" runat="server" Text="<%$Resources:PageTitle%>" ></asp:Label>
             </h1>
             <form id="form1" runat="server" class="formcontent">
                 <asp:Table ID="attributeTable" runat="server" CssClass="dataTable" />

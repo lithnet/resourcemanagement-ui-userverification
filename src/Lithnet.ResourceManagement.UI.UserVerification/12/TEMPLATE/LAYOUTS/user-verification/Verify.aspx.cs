@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.IO;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Reflection;
 using Lithnet.ResourceManagement.Client;
-using Microsoft.IdentityManagement.SmsServiceProvider;
 using SD = System.Diagnostics;
 using System.Globalization;
 using System.Threading;
@@ -177,8 +171,6 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
 
                 SD.Trace.WriteLine($"Loading page for {Thread.CurrentPrincipal.Identity.Name} authenticated using {Thread.CurrentPrincipal.Identity.AuthenticationType} authentication in culture {CultureInfo.CurrentCulture}");
 
-                this.pageTitle.Text = (string)this.GetLocalResourceObject("PageTitle");
-                this.lbHeader.Text = (string)this.GetLocalResourceObject("PageTitle");
                 this.btSend.Text = (string)this.GetLocalResourceObject("PageButtonSendCode");
                 this.ClearError();
 
