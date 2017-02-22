@@ -21,6 +21,7 @@ The module will match the locale of the FIM portal, rendering attribute display 
 - Italian
 - German (Thanks to Peter Stapf)
 - Danish (Thanks to Søren Granfeldt)
+- Swedish (Thanks to Leo Erlandsson)
 
 If you want to contribute a translation, see the "How can I contribute" section below.
 
