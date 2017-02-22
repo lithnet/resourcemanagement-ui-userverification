@@ -1,4 +1,4 @@
- ![](https://lithnet.github.io/images/logo-ex-small.png)
+![](https://lithnet.github.io/images/logo-ex-small.png)
 # Lithnet User Verification Module for FIM 2010/MIM 2016
 The Lithnet User Verification Module is an extension to the FIM/MIM portal that provides the ability for your help desk staff to validate a user using an SMS code sent to their mobile number.
 
@@ -20,6 +20,7 @@ The module is a simple WSP package that needs to be deployed into your SharePoin
 The module will match the locale of the FIM portal, rendering attribute display names in the browser's preferred language. The module itself has been localized into the following languages
 - Italian
 - German (Thanks to Peter Stapf)
+- Danish (Thanks to Søren Granfeldt)
 
 If you want to contribute a translation, see the "How can I contribute" section below.
 
