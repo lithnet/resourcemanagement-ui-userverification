@@ -135,6 +135,7 @@
     <None Include="Lithnet.ResourceManagement.UI.UserVerification.snk" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="12\TEMPLATE\LAYOUTS\user-verification\App_LocalResources\Verify.aspx.da.resx" />
     <EmbeddedResource Include="12\TEMPLATE\LAYOUTS\user-verification\App_LocalResources\Verify.aspx.resx" />
   </ItemGroup>
   <ItemGroup>
