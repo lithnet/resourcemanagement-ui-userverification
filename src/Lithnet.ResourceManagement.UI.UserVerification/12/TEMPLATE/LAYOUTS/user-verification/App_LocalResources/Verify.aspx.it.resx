@@ -148,4 +148,7 @@
   <data name="NotAuthorized" xml:space="preserve">
     <value>Non sei autorizzato a utilizzare questo strumento</value>
   </data>
+  <data name="PageButtonClose" xml:space="preserve">
+    <value>Chiudi</value>
+  </data>
 </root>

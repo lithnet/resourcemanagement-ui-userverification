@@ -147,4 +147,7 @@
   <data name="NotAuthorized" xml:space="preserve">
     <value>Du har ikke tilladelse til at bruge dette værktøj</value>
   </data>
+  <data name="PageButtonClose" xml:space="preserve">
+    <value>Luk</value>
+  </data>
 </root>

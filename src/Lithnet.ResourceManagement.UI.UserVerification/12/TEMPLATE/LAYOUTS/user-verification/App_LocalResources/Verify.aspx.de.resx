@@ -148,4 +148,7 @@
   <data name="NotAuthorized" xml:space="preserve">
     <value>Sie verfügen nicht über die erforderliche Berechtigung zur Verwendung dieses Tools</value>
   </data>
+  <data name="PageButtonClose" xml:space="preserve">
+    <value>Schließen</value>
+  </data>
 </root>
