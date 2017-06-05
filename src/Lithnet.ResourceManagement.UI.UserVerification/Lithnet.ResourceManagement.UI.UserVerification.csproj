@@ -137,6 +137,8 @@
   <ItemGroup>
     <Content Include="12\TEMPLATE\LAYOUTS\user-verification\App_LocalResources\Verify.aspx.da.resx" />
     <Content Include="12\TEMPLATE\LAYOUTS\user-verification\App_LocalResources\Verify.aspx.sv.resx" />
+    <Content Include="12\TEMPLATE\LAYOUTS\user-verification\App_LocalResources\Verify.aspx.pt-PT.resx" />
+    <Content Include="12\TEMPLATE\LAYOUTS\user-verification\App_LocalResources\Verify.aspx.nl-NL.resx" />
     <EmbeddedResource Include="12\TEMPLATE\LAYOUTS\user-verification\App_LocalResources\Verify.aspx.resx" />
   </ItemGroup>
   <ItemGroup>
