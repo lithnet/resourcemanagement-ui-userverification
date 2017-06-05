@@ -13,6 +13,11 @@ If your users are already registered for SMS-based self-service password reset, 
 4. Integrates with the user RCDC using a UocHyperLink control
 5. Can be secured to only allow users of a set to access the tool
 
+## Requirements
+* SharePoint 2013 or later
+* FIM 2010 R2 or later
+* .NET Framework 4.0 or later
+
 ## Getting started
 The module is a simple WSP package that needs to be deployed into your SharePoint farm. The [installation guide](https://github.com/lithnet/resourcemanagement-ui-userverification/wiki/Installation-and-upgrade-steps) covers all the steps for installing and upgrading the module
 
