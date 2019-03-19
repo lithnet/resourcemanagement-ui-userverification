@@ -75,6 +75,19 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
             }
         }
 
+        [ConfigurationProperty("smsContent", IsRequired = false, DefaultValue = null)]
+        public string SmsContent
+        {
+            get
+            {
+                return (string)this["smsContent"];
+            }
+            set
+            {
+                this["smsContent"] = value;
+            }
+        }
+
         [ConfigurationProperty("displayAttributes", IsRequired = false, DefaultValue = "DisplayName,AccountName,Domain,msidmOneTimePasswordMobilePhone")]
         public string DisplayAttributes
         {

@@ -257,7 +257,10 @@ namespace Lithnet.ResourceManagement.UI.UserVerification
                 this.ClearError();
                 code = GenerateCode();
                 SD.Trace.WriteLine($"Sending code {code} for {this.SmsTarget}");
-                SmsProvider.SendSms(this.SmsTarget, string.Format((string)this.GetLocalResourceObject("SmsContent"), code));
+
+                string content = AppConfigurationSection.CurrentConfig.SmsContent ?? (string)this.GetLocalResourceObject("SmsContent") ?? "Your code is {0}";
+
+                SmsProvider.SendSms(this.SmsTarget, string.Format(content, code));
                 SD.Trace.WriteLine($"Sent code {code} to {this.SmsTarget}");
 
                 this.AddRowToTable((string)this.GetLocalResourceObject("SecurityCode"), code, false);
