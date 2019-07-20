@@ -30,15 +30,11 @@ The module will match the locale of the FIM portal, rendering attribute display 
 
 If you want to contribute a translation, see the "How can I contribute" section below.
 
-## How can I contribute to the project
-Found an issue?
-* [Log it](https://github.com/lithnet/resourcemanagement-ui-userverification/issues)
-
-Want to fix an issue?
-* Fork the project and submit a pull request 
-
-Want to contribute a translation?
-* Fill in the [localization survey](https://lithnet-my.sharepoint.com/personal/ryan_lithiumblue_com/_layouts/15/guestaccess.aspx?guestaccesstoken=QMmZhOa00BEb1QJnSnIlPvHFB4DSTBZWxh5UZAVp9aw%3d&docid=1_1fb5451aedc1842b88e2daeb1077b0ac8&wdFormId=%7B59C5F77D%2DCDEA%2D4703%2DBA86%2D81352BC45ED4%7D) and raise a [new issue](https://github.com/lithnet/resourcemanagement-ui-userverification/issues/new) requesting your language be added.
+## How can I contribute to the project?
+* Found an issue and want us to fix it? [Log it](https://github.com/lithnet/resourcemanagement-ui-userverification/issues)
+* Want to fix an issue yourself or add functionality? Clone the project and submit a pull request
+* Make a [donation](https://lithnet.io/donate) and help us cover our costs
+* Contribute a translation. Fill in the [localization survey](https://lithnet-my.sharepoint.com/personal/ryan_lithiumblue_com/_layouts/15/guestaccess.aspx?guestaccesstoken=QMmZhOa00BEb1QJnSnIlPvHFB4DSTBZWxh5UZAVp9aw%3d&docid=1_1fb5451aedc1842b88e2daeb1077b0ac8&wdFormId=%7B59C5F77D%2DCDEA%2D4703%2DBA86%2D81352BC45ED4%7D) and raise a [new issue](https://github.com/lithnet/resourcemanagement-ui-userverification/issues/new) requesting your language be added.
 
 ## Keep up to date
 * [Visit my blog](http://blog.lithiumblue.com)
