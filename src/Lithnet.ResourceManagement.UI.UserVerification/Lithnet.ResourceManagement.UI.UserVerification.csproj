@@ -76,7 +76,7 @@
     </Reference>
     <Reference Include="Microsoft.IdentityManagement.SmsServiceProviderContract">
       <HintPath>lib\Microsoft.IdentityManagement.SmsServiceProviderContract.dll</HintPath>
-      <Private>True</Private>
+      <Private>False</Private>
     </Reference>
     <Reference Include="Microsoft.ResourceManagement, Version=4.1.3451.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Lithnet.ResourceManagement.Client.1.0.6862.26738\lib\net40\Microsoft.ResourceManagement.dll</HintPath>
