@@ -33,9 +33,10 @@ If you want to contribute a translation, see the "How can I contribute" section 
 ## How can I contribute to the project?
 * Found an issue and want us to fix it? [Log it](https://github.com/lithnet/resourcemanagement-ui-userverification/issues)
 * Want to fix an issue yourself or add functionality? Clone the project and submit a pull request
-* Make a [donation](https://lithnet.io/donate) and help us cover our costs
-* Contribute a translation. Fill in the [localization survey](https://lithnet-my.sharepoint.com/personal/ryan_lithiumblue_com/_layouts/15/guestaccess.aspx?guestaccesstoken=QMmZhOa00BEb1QJnSnIlPvHFB4DSTBZWxh5UZAVp9aw%3d&docid=1_1fb5451aedc1842b88e2daeb1077b0ac8&wdFormId=%7B59C5F77D%2DCDEA%2D4703%2DBA86%2D81352BC45ED4%7D) and raise a [new issue](https://github.com/lithnet/resourcemanagement-ui-userverification/issues/new) requesting your language be added.
+
+## Enteprise support
+Lithnet offer enterprise support plans for our open-source products. Deploy our tools with confidence that you have the backing of the dedicated Lithnet support team if you run into any issues, have questions, or need advice. Reach out to support@lithnet.io, let us know the number of users you are managing with your MIM implementation, and we'll put together a quote.
 
 ## Keep up to date
-* [Visit my blog](http://blog.lithiumblue.com)
-* [Follow me on twitter](https://twitter.com/RyanLNewington)![](http://twitter.com/favicon.ico)
+* [Visit our blog](http://blog.lithnet.io)
+* [Follow us on twitter](https://twitter.com/lithnet_io)![](http://twitter.com/favicon.ico)
